@@ -5,6 +5,13 @@
     <title>Amazing app to help you find nearest MBTA station</title>
 </head>
 <body>
-
+    <h1>MBTA Helper</h1>
+    <form method="POST" name="address">
+        {% if error %}
+        <p style="color:red">Address not Found.</p>
+        <p style="color:red">Please enter a valid address.</p>
+        {% endif %} 
+        <p></p>
+    </form>
 </body>
 </html>
