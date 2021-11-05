@@ -10,11 +10,11 @@ MBTA_BASE_URL = "https://api-v3.mbta.com/stops"
 MAPQUEST_API_KEY = "Ex93flIArrOmlQSA0ncpLwMPd9SlcVoO"
 MBTA_API_KEY = "51c6372aa69047a8b8c16271e877e968"
 
-url = f'http://www.mapquestapi.com/geocoding/v1/address?key={MAPQUEST_API_KEY}&location=Babson%20College'
-f = urllib.request.urlopen(url)
-response_text = f.read().decode('utf-8')
-response_data = json.loads(response_text)
-pprint(response_data)
+# url = f'http://www.mapquestapi.com/geocoding/v1/address?key={MAPQUEST_API_KEY}&location=Babson%20College'
+# f = urllib.request.urlopen(url)
+# response_text = f.read().decode('utf-8')
+# response_data = json.loads(response_text)
+# pprint(response_data)
 
 
 # A little bit of scaffolding if you want to use it
