@@ -10,7 +10,9 @@ app = Flask(__name__)
 def index():
     if request.method == "POST":
         address = float(request.form["address"])
-    return render_template("index.html")
+    else: 
+        return render_template("index.html", error=True)
+    return render_template("index.html", error=None)
 
 
 
