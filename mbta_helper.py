@@ -82,15 +82,15 @@ def find_stop_near(place_name):
     coordinates = get_lat_long(place_name)
     latitude = coordinates[0]
     longitude = coordinates[1]
-    print(get_nearest_station(latitude, longitude))
+    return get_nearest_station(latitude, longitude)
 
 
 def main():
     """
     You can test all the functions here
     """
-    place = input("Please enter your location in Boston in order to find the closest MBTA location: ")
-    find_stop_near(place)
+    place = input("Please enter your location in Boston in order to find the closest MBTA station: ")
+    print(find_stop_near(place))
 
 
 if __name__ == '__main__':
