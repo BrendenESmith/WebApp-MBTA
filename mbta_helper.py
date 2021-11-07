@@ -38,14 +38,14 @@ def get_lat_long(place_name):
     """
     if " " in place_name:
         place_name = place_name.replace(" ", "%20")
-    location_data = (get_json(f"http://www.mapquestapi.com/geocoding/v1/address?key={MAPQUEST_API_KEY}&location={place_name}%20Boston"))
-    #pprint(location_data)
+    location_data = (get_json(f"http://www.mapquestapi.com/geocoding/v1/address?key={MAPQUEST_API_KEY}&location={place_name},Boston,MA"))
+    # pprint(location_data)
     locations = location_data["results"][0]["locations"]
     lat_long = locations[0]["latLng"]
     lat_long = tuple(lat_long.values())
     return lat_long
 
-# coordinates = get_lat_long("fenway park")
+# coordinates = get_lat_long("mount rushmore")
 # latitude = coordinates[0]
 # print(latitude)
 # longitude = coordinates[1]
@@ -59,22 +59,23 @@ def get_nearest_station(latitude, longitude):
     formatting requirements for the 'GET /stops' API.
     """
     station_info = (get_json(f"https://api-v3.mbta.com/stops?page%5Blimit%5D=1&sort=distance&filter%5Blatitude%5D={latitude}&filter%5Blongitude%5D={longitude}"))
+    # pprint(station_info)
     # Apparantly, if you only return 1 location, the API is not needed as results are given even though it isn't included
     station_name = station_info["data"][0]["attributes"]["name"]
     wheelchair = station_info["data"][0]["attributes"]["wheelchair_boarding"]
     if wheelchair == 0:
-        wheelchair_accessibility = "No information"
+        wheelchair_accessibility = "No information on wheelchair accessibility"
     if wheelchair == 1:
-        wheelchair_accessibility = "Accessible"
+        wheelchair_accessibility = "Wheelchair Accessible"
     else:
-        wheelchair_accessibility = "Inaccessible"
+        wheelchair_accessibility = "Wheelchair Inaccessible"
     data_of_interest_tuple = (station_name, wheelchair_accessibility)
     return data_of_interest_tuple
 
-# pprint(get_nearest_station(latitude, longitude))
-# print(type(get_nearest_station(latitude, longitude)))
+# print(get_nearest_station(latitude, longitude))
 
-# Main function (the only funcion that needs to be imported to flask); combination of functions above
+
+# Aggregating function (the only funcion that needs to be imported to flask); combination of functions above
 def find_stop_near(place_name):
     """
     Given a place name or address, return the nearest MBTA stop and whether it is wheelchair accessible.
