@@ -38,38 +38,38 @@ def get_lat_long(place_name):
     """
     if " " in place_name:
         place_name = place_name.replace(" ", "%20")
-    location_data = (get_json(f"http://www.mapquestapi.com/geocoding/v1/address?key={MAPQUEST_API_KEY}&location={place_name}%20MA"))
+    location_data = (get_json(f"http://www.mapquestapi.com/geocoding/v1/address?key={MAPQUEST_API_KEY}&location={place_name}%20Boston"))
     #pprint(location_data)
     locations = location_data["results"][0]["locations"]
-    lat_long = locations[2]["latLng"]
+    lat_long = locations[0]["latLng"]
     lat_long = tuple(lat_long.values())
     return lat_long
 
 print(get_lat_long("fenway park"))
 
-# def get_nearest_station(latitude, longitude):
-#     """
-#     Given latitude and longitude strings, return a (station_name, wheelchair_accessible)
-#     tuple for the nearest MBTA station to the given coordinates.
-#     See https://api-v3.mbta.com/docs/swagger/index.html#/Stop/ApiWeb_StopController_index for URL
-#     formatting requirements for the 'GET /stops' API.
-#     """
-#     pass
+def get_nearest_station(latitude, longitude):
+    """
+    Given latitude and longitude strings, return a (station_name, wheelchair_accessible)
+    tuple for the nearest MBTA station to the given coordinates.
+    See https://api-v3.mbta.com/docs/swagger/index.html#/Stop/ApiWeb_StopController_index for URL
+    formatting requirements for the 'GET /stops' API.
+    """
+    pass
 
-# # Main function (the only funcion that needs to be imported to flask); combination of functions above
-# def find_stop_near(place_name):
-#     """
-#     Given a place name or address, return the nearest MBTA stop and whether it is wheelchair accessible.
-#     """
-#     pass
-
-
-# def main():
-#     """
-#     You can test all the functions here
-#     """
-#     pass
+# Main function (the only funcion that needs to be imported to flask); combination of functions above
+def find_stop_near(place_name):
+    """
+    Given a place name or address, return the nearest MBTA stop and whether it is wheelchair accessible.
+    """
+    pass
 
 
-# if __name__ == '__main__':
-#     main()
+def main():
+    """
+    You can test all the functions here
+    """
+    pass
+
+
+if __name__ == '__main__':
+    main()
