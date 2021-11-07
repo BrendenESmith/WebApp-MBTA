@@ -29,46 +29,24 @@ def get_json(url):
     response_data = json.loads(response_text)
     return response_data
 
-# pprint(get_json(f"http://www.mapquestapi.com/geocoding/v1/address?key={MAPQUEST_API_KEY}&location=Babson%20College"))
+def get_lat_long(place_name):
+    """
+    Given a place name or address, return a (latitude, longitude) tuple
+    with the coordinates of the given place.
+    See https://developer.mapquest.com/documentation/geocoding-api/address/get/
+    for Mapquest Geocoding  API URL formatting requirements.
+    """
+    if " " in place_name:
+        place_name = place_name.replace(" ", "%20")
+    location_data = (get_json(f"http://www.mapquestapi.com/geocoding/v1/address?key={MAPQUEST_API_KEY}&location={place_name}%20MA"))
+    #pprint(location_data)
+    locations = location_data["results"][0]["locations"]
+    lat_long = locations[2]["latLng"]
+    lat_long = tuple(lat_long.values())
+    return lat_long
 
-place_name = "fenway park"
-if " " in place_name:
-    place_name = place_name.replace(" ", "%20")
-    print(place_name)
-location_data = (get_json(f"http://www.mapquestapi.com/geocoding/v1/address?key={MAPQUEST_API_KEY}&location={place_name}"))
-#pprint(location_data)
-locations = location_data["results"][0]["locations"]
-pprint((locations))
-print()
-print()
-for i in range(len(locations)):
-    if (locations[i]["adminArea3"]) == 'MA':
-        lat_long1 = locations[i]["latLng"]
-        print(lat_long1)
-# lat_long = tuple(lat_long1.values())
-# print(lat_long)
-# print(type(lat_long))
+print(get_lat_long("fenway park"))
 
-# def get_lat_long(place_name):
-#     """
-#     Given a place name or address, return a (latitude, longitude) tuple
-#     with the coordinates of the given place.
-#     See https://developer.mapquest.com/documentation/geocoding-api/address/get/
-#     for Mapquest Geocoding  API URL formatting requirements.
-#     """
-#     if " " in place_name:
-#         place_name = place_name.replace(" ", "%20")
-#     location_data = (get_json(f"http://www.mapquestapi.com/geocoding/v1/address?key={MAPQUEST_API_KEY}&location={place_name}"))
-#     #pprint(location_data)
-#     locations = location_data["results"][0]["locations"]
-#     for i in range(len(locations)):
-#         if (locations[i]["adminArea3"]) == 'MA':
-#             lat_long = locations[i]["displayLatLng"]
-#             break
-#     lat_long = tuple(lat_long.values())
-#     return lat_long
-
-# print(get_lat_long("fenway park"))
 # def get_nearest_station(latitude, longitude):
 #     """
 #     Given latitude and longitude strings, return a (station_name, wheelchair_accessible)
