@@ -1,17 +1,17 @@
 """
 Flask application for MBTA information. Given location as input, returns nearest MBTA station as output. 
 """
-# Hello this is a test
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-@app.route("/", method=["GET","POST"])
+@app.route("/", methods=['POST','GET'])
 def index():
-    if request.method == "POST":
-        address = float(request.form["address"])
-    else: 
-        return render_template("index.html", error=True)
+    if request.method == 'POST':
+        if valid_address(request.form['address']):
+            return nearest_mbta(request.form['address'])
+        else: 
+            return render_template("index.html", error=True)
     return render_template("index.html", error=None)
 
 
