@@ -8,7 +8,7 @@ MBTA_BASE_URL = "https://api-v3.mbta.com/stops"
 
 # Your API KEYS (you need to use your own keys - very long random characters)
 MAPQUEST_API_KEY = "Ex93flIArrOmlQSA0ncpLwMPd9SlcVoO"
-MBTA_API_KEY = "51c6372aa69047a8b8c16271e877e968"
+MBTA_API_KEY = "51c6372aa69047a8b8c16z271e877e968"
 
 # url = f'http://www.mapquestapi.com/geocoding/v1/address?key={MAPQUEST_API_KEY}&location=Babson%20College'
 # f = urllib.request.urlopen(url)
@@ -83,16 +83,27 @@ def find_stop_near(place_name):
     coordinates = get_lat_long(place_name)
     latitude = coordinates[0]
     longitude = coordinates[1]
-    return get_nearest_station(latitude, longitude)
+    # Boston_longitude = 42.3601
+    # Boston_latitude = 71.0589
+    if latitude:
+        return get_nearest_station(latitude, longitude)
+    else:
+        print('Sorry, address not found.')
+        return None
 
 
 def main():
     """
     You can test all the functions here
     """
-    place = input("Please enter your location in Boston in order to find the closest MBTA station: ")
-    print(find_stop_near(place))
-
-
+    place = float(input("Please enter your location in Boston in order to find the closest MBTA station: "))
+    # print(find_stop_near(place))
+    station = find_stop_near(place)
+    if station:
+        print(f'Your entered location is {place}.')
+        print(f'The nearest MBTA stop is {station}.')
+    else:
+        print('Sorry, address not found.')
+    
 if __name__ == '__main__':
     main()

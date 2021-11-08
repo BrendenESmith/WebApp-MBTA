@@ -6,15 +6,15 @@
 </head>
 <body>
     <h1>MBTA Helper</h1>
-    <form method="POST" name="address">
+    <form method="POST" name="place">
         {% if error %}
         <p style="color:red">Sorry, address not found.</p>
         <a href=http://127.0.0.1:5000/ class="button">Return Home</a>
         {% endif %} 
         <p>Hello, welcome to MBTA Helper.</p>
         <p>Please enter an address to find the nearest MBTA Station!</p>
-        <input type="text" size="50" name="address"/>
-        <p><input type="submit" value="Enter"/></p>  
+        <input type="text" size="50" name="place"/>
+        <p><input type="submit" value="Enter"/></p>
     </form>
 </body>
 </html>
