@@ -12,8 +12,7 @@ def index():
         information = get_json(address)
         if information:
             return find_stop_near(render_template("result.html"),
-            station = information
-            )
+            station = information)
         else: 
             return render_template("index.html", error=True)
     return render_template("index.html", error=None)
