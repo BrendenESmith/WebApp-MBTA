@@ -61,16 +61,19 @@ def get_nearest_station(latitude, longitude):
     station_info = (get_json(f"https://api-v3.mbta.com/stops?page%5Blimit%5D=1&sort=distance&filter%5Blatitude%5D={latitude}&filter%5Blongitude%5D={longitude}"))
     # pprint(station_info)
     # Apparantly, if you only return 1 location, the API is not needed as results are given even though it isn't included
-    station_name = station_info["data"][0]["attributes"]["name"]
-    wheelchair = station_info["data"][0]["attributes"]["wheelchair_boarding"]
-    if wheelchair == 0:
-        wheelchair_accessibility = "No information on wheelchair accessibility"
-    if wheelchair == 1:
-        wheelchair_accessibility = "Wheelchair Accessible"
-    else:
-        wheelchair_accessibility = "Wheelchair Inaccessible"
-    data_of_interest_tuple = (station_name, wheelchair_accessibility)
-    return data_of_interest_tuple
+    try:
+        station_name = station_info["data"][0]["attributes"]["name"]
+        wheelchair = station_info["data"][0]["attributes"]["wheelchair_boarding"]
+        if wheelchair == 0:
+            wheelchair_accessibility = "No information on wheelchair accessibility"
+        if wheelchair == 1:
+            wheelchair_accessibility = "Wheelchair Accessible"
+        else:
+            wheelchair_accessibility = "Wheelchair Inaccessible"
+        data_of_interest_tuple = (station_name, wheelchair_accessibility)
+        return data_of_interest_tuple
+    except:
+        print("You did not enter a valid location in Boston.")
 
 # print(get_nearest_station(latitude, longitude))
 
