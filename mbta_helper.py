@@ -85,11 +85,14 @@ def find_stop_near(place_name):
     longitude = coordinates[1]
     # Boston_longitude = 42.3601
     # Boston_latitude = 71.0589
-    if latitude:
-        return get_nearest_station(latitude, longitude)
-    else:
-        print('Sorry, address not found.')
-        return None
+    try:
+        if latitude:
+            return get_nearest_station(latitude, longitude)
+        else:
+            print('Sorry, address not found.')
+            return None
+    except:
+        print('sorry it did not work')
 
 
 def main():
